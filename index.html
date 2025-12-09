@@ -1,1 +1,446 @@
-#STAHLKRAFT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAHLKRAFT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+
+        body {
+            background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            color: white;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            width: 100%;
+            height: 100vh;
+            background: url('box.jpg') center/cover no-repeat fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slogan {
+            position: absolute;
+            left: 50px;
+            bottom: 80px;
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.1;
+            text-shadow: 0 6px 30px rgba(0,0,0,0.8);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            right: 40px;
+            bottom: 60px;
+            width: 28px;
+            height: 100px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .ball {
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 14px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.7);
+            animation: scrolldown 3.6s infinite ease-in-out;
+        }
+
+        @keyframes scrolldown {
+            0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+            70%  { transform: translateX(-50%) translateY(62px); opacity: 1; }
+            90%  { transform: translateX(-50%) translateY(80px); opacity: 0; }
+            90.1%{ transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        /* === HEADER & MENU === */
+        .header {
+            position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 1400px; height: 64px; padding: 0 32px;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .logo-img { height: 36px; transform: scale(0.88); transition: transform 0.3s; }
+        .logo-img:hover { transform: scale(0.96); }
+        .menu-toggle { cursor: pointer; width: 40px; height: 32px; position: relative; }
+        .line { height: 4px; background: #000; border-radius: 3px; position: absolute; width: 100%; left: 0; transition: 0.35s; }
+        .line:nth-child(1) { top: 7px; }
+        .line:nth-child(2) { top: 21px; }
+        .menu-toggle.active .line:nth-child(1) { transform: rotate(45deg); top: 14px; }
+        .menu-toggle.active .line:nth-child(2) { transform: rotate(-45deg); top: 14px; }
+
+        .dropdown {
+            position: fixed; top: 94px; right: 2.5%; width: 240px;
+            background: rgba(255,255,255,0.18); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.25); border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
+            transform: translateY(-8px); transition: 0.35s; z-index: 999;
+        }
+        .dropdown.active { opacity: 1; visibility: visible; transform: none; }
+        .dropdown a { 
+            display: block; 
+            padding: 18px 24px; 
+            color: #000; 
+            font-weight: 600; 
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dropdown a:hover { background: rgba(255,255,255,0.3); }
+
+        /* === CONTENT SECTION === */
+        .content {
+            background: #111;
+            padding: 40px 5%;
+        }
+
+        .stacked-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 50px;
+        }
+
+        /* Ticker */
+        .ticker-container { width: 100%; overflow: hidden; line-height: 1; }
+        .ticker-track {
+            display: inline-block; white-space: nowrap;
+            animation: ticker 30s linear infinite;
+            font-size: 4.6rem; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 14px; color: rgba(255,255,255,0.94);
+        }
+        .ticker-track span { padding-left: 40px; display: inline-block; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* === IMAGE AND TIMER SECTION === */
+        .preview-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .preview-image-wrapper {
+            width: 460px;
+            max-width: 90vw;
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+        }
+
+        .preview-image-wrapper img {
+            width: 100%;
+            display: block;
+            filter: blur(3px);
+            opacity: 0.84;
+        }
+
+        .countdown-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 30px;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-value {
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: #ffffff;
+            line-height: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .time-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            background: #000;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+        }
+
+        footer a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                background: url('box.jpg') left center/cover no-repeat scroll;
+            }
+
+            .ticker-track { 
+                font-size: 2.5rem; 
+                letter-spacing: 6px; 
+            }
+            .ticker-track span { 
+                padding-left: 30px; 
+            }
+            
+            .slogan { 
+                font-size: 2.2rem; 
+                left: 20px; 
+                bottom: 80px; 
+                right: 20px;
+            }
+            
+            .content { 
+                padding: 30px 5%; 
+            }
+            
+            footer { 
+                padding: 30px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .preview-row { 
+                gap: 30px; 
+                flex-direction: column; 
+            }
+            
+            .preview-image-wrapper {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .countdown { 
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .time-value { 
+                font-size: 3rem; 
+                min-width: 70px; 
+            }
+            
+            .time-label { 
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+            }
+
+            .time-unit {
+                gap: 5px;
+            }
+
+            .header {
+                width: 90%;
+                height: 56px;
+                padding: 0 20px;
+            }
+
+            .logo-img {
+                height: 30px;
+            }
+
+            .scroll-indicator {
+                right: 20px;
+                bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                background-position: 20% center;
+            }
+
+            .ticker-track { 
+                font-size: 2rem; 
+                letter-spacing: 4px; 
+            }
+
+            .slogan {
+                font-size: 1.8rem;
+                left: 15px;
+                bottom: 70px;
+                right: 15px;
+            }
+
+            .time-value { 
+                font-size: 2.5rem; 
+                min-width: 60px; 
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="slogan">
+            Delivering AI<br>where it matters most
+        </div>
+        <div class="scroll-indicator">
+            <div class="ball"></div>
+        </div>
+    </div>
+
+    <header class="header">
+        <img src="stahlkraft.jpg" alt="Stahlkraft" class="logo-img">
+        <div class="menu-toggle" id="menuToggle">
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <nav class="dropdown" id="dropdown">
+        <a href="#content" id="comingSoonLink">Coming Soon</a>
+    </nav>
+
+    <section class="content" id="content">
+        <div class="stacked-preview">
+            <div class="ticker-container">
+                <div class="ticker-track">
+                    <span>COMING SOON</span><span>COMING SOON</span>
+                    <span>COMING SOON</span><span>COMING SOON</span>
+                    <span>COMING SOON</span><span>COMING SOON</span>
+                    <span>COMING SOON</span><span>COMING SOON</span>
+                </div>
+            </div>
+
+            <div class="preview-row">
+                <div class="preview-image-wrapper">
+                    <img src="test1.png" alt="Preview">
+                </div>
+                
+                <div class="countdown-wrapper">
+                    <div class="countdown">
+                        <div class="time-unit">
+                            <div class="time-value" id="days">00</div>
+                            <div class="time-label">Days</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="hours">00</div>
+                            <div class="time-label">Hours</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="minutes">00</div>
+                            <div class="time-label">Minutes</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-value" id="seconds">00</div>
+                            <div class="time-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            Copyright Stahlkraft Innovation Group |
+            Investor Relations: <a href="mailto:investors@stahlkraft.us">investors@stahlkraft.us</a> |
+            Contact: <a href="mailto:contact@stahlkraft.us">contact@stahlkraft.us</a>
+        </p>
+    </footer>
+
+    <script>
+        // Menu toggle
+        const toggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('dropdown');
+        const comingSoonLink = document.getElementById('comingSoonLink');
+        
+        toggle.onclick = e => {
+            e.stopPropagation();
+            toggle.classList.toggle('active');
+            menu.classList.toggle('active');
+        };
+        
+        document.onclick = () => {
+            toggle.classList.remove('active');
+            menu.classList.remove('active');
+        };
+        
+        menu.onclick = e => e.stopPropagation();
+        
+        // Close menu when clicking Coming Soon link
+        comingSoonLink.onclick = () => {
+            toggle.classList.remove('active');
+            menu.classList.remove('active');
+        };
+
+        // Countdown timer - Set to February 9, 2026 at midnight (2 months from December 9, 2024)
+        const countdownDate = new Date('2026-02-09T00:00:00').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                clearInterval(countdownInterval);
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

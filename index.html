@@ -290,7 +290,7 @@
 
         .modal-content {
             width: 100%;
-            max-width: 1600px; /* Wider for bigger model */
+            max-width: 1600px;
             background: rgba(15, 15, 15, 0.9);
             backdrop-filter: blur(20px);
             border-radius: 24px;
@@ -298,7 +298,7 @@
             position: relative;
             display: flex;
             align-items: center;
-            gap: 100px; /* More space */
+            gap: 100px;
             flex-wrap: wrap;
             box-shadow: 0 20px 80px rgba(0,0,0,0.8);
         }
@@ -327,21 +327,20 @@
         }
 
         .unlocked-model {
-            flex: 1.4; /* Model takes more space */
+            flex: 1.4;
             min-width: 500px;
-            height: 800px; /* Much taller */
+            height: 800px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             position: relative;
-            background: #000; /* Solid black background */
+            background: #000;
         }
 
-        /* Make the model fill and center */
         .unlocked-model model-viewer {
             width: 100% !important;
             height: 100% !important;
-            --poster-color: transparent; /* No poster */
+            --poster-color: transparent;
         }
 
         .model-loading {
@@ -443,46 +442,134 @@
             color: #fff;
         }
 
-        /* Responsive */
+        /* === MOBILE-ONLY RESPONSIVE OVERRIDES === */
         @media (max-width: 1200px) {
             .modal-content { gap: 60px; padding: 50px; }
             .unlocked-model { height: 700px; }
         }
 
         @media (max-width: 1024px) {
-            .investor-text { font-size: 2rem; }
-            .investor-wrapper { gap: 40px; }
             .modal-content { padding: 40px; gap: 50px; }
             .unlocked-model { height: 600px; }
         }
 
         @media (max-width: 768px) {
-            .slogan { font-size: 2.2rem; left: 20px; bottom: 80px; right: 20px; }
-            .ticker-track { font-size: 2.5rem; letter-spacing: 6px; }
-            .ticker-track span { padding-left: 30px; }
-            .preview-row { flex-direction: column; gap: 30px; }
-            .preview-image-wrapper { width: 100%; max-width: 400px; height: 520px; }
-            .time-value { font-size: 3rem; }
-            .header { width: 90%; height: 56px; padding: 0 20px; }
-            .logo-img { height: 30px; }
-            .stacked-preview { gap: 30px; }
-            .investor-wrapper { flex-direction: column; }
-            .investor-text { font-size: 1.8rem; }
-            .modal-content { flex-direction: column; padding: 30px; }
-            .unlocked-model { height: 500px; min-width: auto; }
-            .close-btn { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 24px; }
+            .hero { height: 100dvh; }
+            .slogan { 
+                font-size: 2.4rem; 
+                left: 20px; 
+                bottom: 90px; 
+                right: 20px; 
+            }
+            .scroll-indicator { 
+                right: 20px; 
+                bottom: 40px; 
+                height: 80px; 
+            }
+            .ball { animation-duration: 3.6s; }
+            @keyframes scrolldown {
+                0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+                70%  { transform: translateX(-50%) translateY(42px); opacity: 1; }
+                90%  { transform: translateX(-50%) translateY(60px); opacity: 0; }
+                90.1%{ transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+
+            .header { 
+                width: 92%; 
+                height: 58px; 
+                padding: 0 20px; 
+                top: 12px; 
+            }
+            .logo-img { height: 32px; }
+
+            .ticker-track { 
+                font-size: 2.8rem; 
+                letter-spacing: 8px; 
+                animation-duration: 35s; 
+            }
+            .ticker-track span { padding-left: 24px; }
+
+            .preview-row { 
+                flex-direction: column; 
+                gap: 50px; 
+            }
+            .preview-image-wrapper { 
+                width: 100%; 
+                max-width: 400px; 
+                height: 520px; 
+            }
+            .countdown { gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .time-value { font-size: 3.8rem; min-width: 80px; }
+
+            .stacked-preview { gap: 50px; }
+            .content { padding: 50px 5%; }
+
+            .investor-wrapper { 
+                flex-direction: column; 
+                gap: 60px; 
+            }
+            .investor-text { font-size: 2rem; }
+
+            /* FIX: Perfectly center the investor card on mobile */
+            .investor-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .investor-card {
+                margin: 0 auto; /* Extra safety for centering */
+            }
+
+            .modal-content { 
+                flex-direction: column; 
+                padding: 40px 30px; 
+                gap: 50px; 
+            }
+            .unlocked-model { 
+                height: 500px; 
+                min-width: auto; 
+            }
+            .close-btn { 
+                top: 20px; 
+                right: 20px; 
+                width: 44px; 
+                height: 44px; 
+                font-size: 24px; 
+            }
         }
 
         @media (max-width: 480px) {
-            .slogan { font-size: 1.8rem; left: 15px; bottom: 70px; right: 15px; }
-            .ticker-track { font-size: 2rem; letter-spacing: 4px; }
-            .time-value { font-size: 2.5rem; }
+            .slogan { 
+                font-size: 1.9rem; 
+                left: 16px; 
+                bottom: 80px; 
+                right: 16px; 
+            }
+            .ticker-track { 
+                font-size: 2.1rem; 
+                letter-spacing: 5px; 
+                animation-duration: 30s; 
+            }
+            .ticker-track span { padding-left: 20px; }
+
+            .preview-image-wrapper { height: 420px; }
+            .time-value { font-size: 3rem; }
+            .time-label { font-size: 0.9rem; }
+
+            .investor-text { font-size: 1.7rem; }
             .investor-card { padding: 30px 20px; }
-            .investor-card h2 { font-size: 1.7rem; }
-            .investor-text { font-size: 1.6rem; }
+            .investor-card h2 { font-size: 1.8rem; }
+
+            .unlocked-model { height: 400px; }
             .unlocked-pitch { font-size: 1.05rem; }
             .unlocked-pitch h3 { font-size: 2rem; }
-            .unlocked-model { height: 400px; }
+            .modal-content { padding: 30px 20px; }
+        }
+
+        @media (max-width: 360px) {
+            .slogan { font-size: 1.7rem; }
+            .ticker-track { font-size: 1.9rem; }
+            .time-value { font-size: 2.6rem; }
         }
     </style>
 
@@ -688,11 +775,9 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Reset loading
                 loadingOverlay.style.display = 'flex';
                 progressBar.style.width = '0%';
                 
-                // Use real model-viewer progress event
                 const onProgress = (event) => {
                     const percent = event.detail.totalProgress * 100;
                     progressBar.style.width = `${percent}%`;
@@ -702,7 +787,6 @@
                 };
                 modelViewer.addEventListener('progress', onProgress);
                 
-                // Fallback animation
                 let fakeProgress = 0;
                 const fakeInterval = setInterval(() => {
                     fakeProgress += 8;
@@ -712,7 +796,6 @@
                     if (fakeProgress >= 100) clearInterval(fakeInterval);
                 }, 200);
                 
-                // Clean up on load
                 modelViewer.addEventListener('load', () => {
                     loadingOverlay.style.display = 'none';
                     modelViewer.removeEventListener('progress', onProgress);
@@ -724,7 +807,6 @@
             }
         });
 
-        // Close modal
         closeModal.addEventListener('click', () => {
             modal.classList.remove('active');
             document.body.style.overflow = '';

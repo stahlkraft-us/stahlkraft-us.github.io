@@ -454,7 +454,10 @@
         }
 
         @media (max-width: 768px) {
-            .hero { height: 100dvh; }
+            .hero { 
+                height: 100dvh; 
+                background: url('box.jpg') center bottom/cover no-repeat fixed; /* Shows lower part of image on mobile */
+            }
             .slogan { 
                 font-size: 2.4rem; 
                 left: 20px; 
@@ -511,13 +514,13 @@
             }
             .investor-text { font-size: 2rem; }
 
-            /* FIX: Perfectly center the investor card on mobile */
+            /* Perfectly center investor card on mobile */
             .investor-right {
                 width: 100%;
                 justify-content: center;
             }
             .investor-card {
-                margin: 0 auto; /* Extra safety for centering */
+                margin: 0 auto;
             }
 
             .modal-content { 

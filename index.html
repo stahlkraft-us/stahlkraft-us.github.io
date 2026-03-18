@@ -14,7 +14,6 @@
             color: white;
         }
 
-        /* === HERO SECTION === */
         .hero {
             width: 100%;
             height: 100vh;
@@ -69,7 +68,6 @@
             100% { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
-        /* === HEADER & MENU === */
         .header {
             position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
             width: 95%; max-width: 1400px; height: 64px; padding: 0 32px;
@@ -95,116 +93,26 @@
             transform: translateY(-8px); transition: 0.35s; z-index: 999;
         }
         .dropdown.active { opacity: 1; visibility: visible; transform: none; }
-        .dropdown a { 
-            display: block; 
-            padding: 18px 24px; 
-            color: #000; 
-            font-weight: 600; 
+        .dropdown a {
+            display: block;
+            padding: 18px 24px;
+            color: #000;
+            font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             transition: background 0.3s;
         }
         .dropdown a:hover { background: rgba(255,255,255,0.3); }
 
-        /* === CONTENT SECTION === */
         .content {
             background: #111;
             padding: 40px 5%;
         }
 
-        .stacked-preview {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 40px;
-        }
-
-        /* Ticker */
-        .ticker-container { 
-            width: 100%; 
-            overflow: hidden; 
-            line-height: 1; 
-        }
-        .ticker-track {
-            display: inline-block; white-space: nowrap;
-            animation: ticker 30s linear infinite;
-            font-size: 4.6rem; font-weight: 900; text-transform: uppercase;
-            letter-spacing: 14px; color: rgba(255,255,255,0.94);
-        }
-        .ticker-track span { padding-left: 40px; display: inline-block; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* === IMAGE AND TIMER SECTION === */
-        .preview-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .preview-image-wrapper {
-            width: 460px;
-            max-width: 90vw;
-            height: 600px;
-            border-radius: 36px;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
-            position: relative;
-        }
-
-        .locked-preview {
-            width: 100%;
-            height: 100%;
-            background: url('test1.webp') center/cover no-repeat;
-            filter: blur(2px);
-            opacity: 0.92;
-        }
-
-        .countdown-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .countdown {
-            display: flex;
-            gap: 30px;
-        }
-
-        .time-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .time-value {
-            font-size: 5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            color: #ffffff;
-            line-height: 1;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .time-label {
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* === INVESTOR ACCESS SECTION === */
         .investor-wrapper {
             width: 100%;
             max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,7 +179,6 @@
             margin-bottom: 20px;
         }
 
-        /* === FULLSCREEN INVESTOR MODAL === */
         .investor-modal {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -442,7 +349,6 @@
             color: #fff;
         }
 
-        /* === MOBILE-ONLY RESPONSIVE OVERRIDES === */
         @media (max-width: 1200px) {
             .modal-content { gap: 60px; padding: 50px; }
             .unlocked-model { height: 700px; }
@@ -454,21 +360,21 @@
         }
 
         @media (max-width: 768px) {
-            .hero { 
-                height: 100dvh; 
-                background: url('box.jpg') center 100%/cover no-repeat; /* 100% = bottom alignment */
-                background-attachment: scroll; /* Safer on mobile browsers */
+            .hero {
+                height: 100dvh;
+                background: url('box.jpg') center 100%/cover no-repeat;
+                background-attachment: scroll;
             }
-            .slogan { 
-                font-size: 2.4rem; 
-                left: 20px; 
-                bottom: 90px; 
-                right: 20px; 
+            .slogan {
+                font-size: 2.4rem;
+                left: 20px;
+                bottom: 90px;
+                right: 20px;
             }
-            .scroll-indicator { 
-                right: 20px; 
-                bottom: 40px; 
-                height: 80px; 
+            .scroll-indicator {
+                right: 20px;
+                bottom: 40px;
+                height: 80px;
             }
             .ball { animation-duration: 3.6s; }
             @keyframes scrolldown {
@@ -479,43 +385,22 @@
                 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
             }
 
-            .header { 
-                width: 92%; 
-                height: 58px; 
-                padding: 0 20px; 
-                top: 12px; 
+            .header {
+                width: 92%;
+                height: 58px;
+                padding: 0 20px;
+                top: 12px;
             }
             .logo-img { height: 32px; }
 
-            .ticker-track { 
-                font-size: 2.8rem; 
-                letter-spacing: 8px; 
-                animation-duration: 35s; 
-            }
-            .ticker-track span { padding-left: 24px; }
-
-            .preview-row { 
-                flex-direction: column; 
-                gap: 50px; 
-            }
-            .preview-image-wrapper { 
-                width: 100%; 
-                max-width: 400px; 
-                height: 520px; 
-            }
-            .countdown { gap: 20px; flex-wrap: wrap; justify-content: center; }
-            .time-value { font-size: 3.8rem; min-width: 80px; }
-
-            .stacked-preview { gap: 50px; }
             .content { padding: 50px 5%; }
 
-            .investor-wrapper { 
-                flex-direction: column; 
-                gap: 60px; 
+            .investor-wrapper {
+                flex-direction: column;
+                gap: 60px;
             }
             .investor-text { font-size: 2rem; }
 
-            /* Perfectly center investor card on mobile */
             .investor-right {
                 width: 100%;
                 justify-content: center;
@@ -524,41 +409,31 @@
                 margin: 0 auto;
             }
 
-            .modal-content { 
-                flex-direction: column; 
-                padding: 40px 30px; 
-                gap: 50px; 
+            .modal-content {
+                flex-direction: column;
+                padding: 40px 30px;
+                gap: 50px;
             }
-            .unlocked-model { 
-                height: 500px; 
-                min-width: auto; 
+            .unlocked-model {
+                height: 500px;
+                min-width: auto;
             }
-            .close-btn { 
-                top: 20px; 
-                right: 20px; 
-                width: 44px; 
-                height: 44px; 
-                font-size: 24px; 
+            .close-btn {
+                top: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            .slogan { 
-                font-size: 1.9rem; 
-                left: 16px; 
-                bottom: 80px; 
-                right: 16px; 
+            .slogan {
+                font-size: 1.9rem;
+                left: 16px;
+                bottom: 80px;
+                right: 16px;
             }
-            .ticker-track { 
-                font-size: 2.1rem; 
-                letter-spacing: 5px; 
-                animation-duration: 30s; 
-            }
-            .ticker-track span { padding-left: 20px; }
-
-            .preview-image-wrapper { height: 420px; }
-            .time-value { font-size: 3rem; }
-            .time-label { font-size: 0.9rem; }
 
             .investor-text { font-size: 1.7rem; }
             .investor-card { padding: 30px 20px; }
@@ -572,12 +447,9 @@
 
         @media (max-width: 360px) {
             .slogan { font-size: 1.7rem; }
-            .ticker-track { font-size: 1.9rem; }
-            .time-value { font-size: 2.6rem; }
         }
     </style>
 
-    <!-- Google Model Viewer -->
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -600,81 +472,29 @@
     </header>
 
     <nav class="dropdown" id="dropdown">
-        <a href="#content" id="comingSoonLink">Coming Soon</a>
+        <a href="#content" id="contentLink">About</a>
     </nav>
 
     <section class="content" id="content">
-        <div class="stacked-preview">
-            <!-- First Ticker -->
-            <div class="ticker-container">
-                <div class="ticker-track">
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
+        <div class="investor-wrapper">
+            <div class="investor-left">
+                <div class="investor-text">
+                    A new chapter for<br>counter UAV solutions
                 </div>
             </div>
-
-            <!-- Timer + Preview Image -->
-            <div class="preview-row">
-                <div class="preview-image-wrapper">
-                    <div class="locked-preview"></div>
-                </div>
-                
-                <div class="countdown-wrapper">
-                    <div class="countdown">
-                        <div class="time-unit">
-                            <div class="time-value" id="days">00</div>
-                            <div class="time-label">Days</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-value" id="hours">00</div>
-                            <div class="time-label">Hours</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-value" id="minutes">00</div>
-                            <div class="time-label">Minutes</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-value" id="seconds">00</div>
-                            <div class="time-label">Seconds</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Second Ticker -->
-            <div class="ticker-container">
-                <div class="ticker-track">
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                    <span>COMING SOON</span><span>COMING SOON</span>
-                </div>
-            </div>
-
-            <!-- Investor Section -->
-            <div class="investor-wrapper">
-                <div class="investor-left">
-                    <div class="investor-text">
-                        A new chapter for<br>counter UAV solutions
-                    </div>
-                </div>
-                <div class="investor-right">
-                    <div class="investor-card" id="investorCard">
-                        <h2>Investor Access</h2>
-                        <p>Click to enter PIN</p>
-                    </div>
+            <div class="investor-right">
+                <div class="investor-card" id="investorCard">
+                    <h2>Investor Access</h2>
+                    <p>Click to enter PIN</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Fullscreen Investor Modal -->
     <div class="investor-modal" id="investorModal">
         <div class="modal-content">
             <div class="close-btn" id="closeModal">×</div>
-            
+
             <div class="unlocked-model">
                 <div class="model-loading" id="modelLoading">
                     <div>Loading 3D Prototype...</div>
@@ -686,7 +506,7 @@
                     <button slot="ar-button" style="background:#fff;color:#000;padding:12px 24px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">View in AR</button>
                 </model-viewer>
             </div>
-            
+
             <div class="unlocked-pitch">
                 <h3>Stahlkraft Counter-UAV Defense Tower</h3>
                 <ul>
@@ -694,7 +514,7 @@
                     <li><strong>Legacy systems fail the cost equation.</strong> Active protection like Trophy costs $350k+ per vehicle and only defends specific angles. You can't protect every asset.</li>
                     <li><strong>Our solution changes the game.</strong> Autonomous, deployable defense towers at a fraction of the cost — AI-powered detection + directed fragmentation countermeasures.</li>
                     <li><strong>How it works:</strong> Radar + computer vision spots threats. On-board AI calculates intercept trajectory in milliseconds. A precise frag charge shreds the drone mid-air.</li>
-                    <li><strong>Why it wins:</strong> You don’t need a million-dollar missile to stop a hobby drone. You need a smart $50 charge and AI that never sleeps.</li>
+                    <li><strong>Why it wins:</strong> You don't need a million-dollar missile to stop a hobby drone. You need a smart $50 charge and AI that never sleeps.</li>
                     <li><strong>Stahlkraft is building it now.</strong> Machine learning threat detection, sensor fusion, autonomous response — all integrated. Live prototype detection demo available.</li>
                 </ul>
             </div>
@@ -710,60 +530,28 @@
     </footer>
 
     <script>
-        // Menu toggle
         const toggle = document.getElementById('menuToggle');
         const menu = document.getElementById('dropdown');
-        const comingSoonLink = document.getElementById('comingSoonLink');
-        
+        const contentLink = document.getElementById('contentLink');
+
         toggle.onclick = e => {
             e.stopPropagation();
             toggle.classList.toggle('active');
             menu.classList.toggle('active');
         };
-        
+
         document.onclick = () => {
             toggle.classList.remove('active');
             menu.classList.remove('active');
         };
-        
+
         menu.onclick = e => e.stopPropagation();
-        
-        comingSoonLink.onclick = () => {
+
+        contentLink.onclick = () => {
             toggle.classList.remove('active');
             menu.classList.remove('active');
         };
 
-        // Countdown timer - February 9, 2026
-        const countdownDate = new Date('2026-03-16T00:00:00').getTime();
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            
-            if (distance < 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                clearInterval(countdownInterval);
-                return;
-            }
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-        
-        updateCountdown();
-        const countdownInterval = setInterval(updateCountdown, 1000);
-
-        // Investor Access
         const investorCard = document.getElementById('investorCard');
         const modal = document.getElementById('investorModal');
         const closeModal = document.getElementById('closeModal');
@@ -774,14 +562,14 @@
 
         investorCard.addEventListener('click', () => {
             const pin = prompt('Enter PIN for Investor Access:');
-            
+
             if (pin === correctPin) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                
+
                 loadingOverlay.style.display = 'flex';
                 progressBar.style.width = '0%';
-                
+
                 const onProgress = (event) => {
                     const percent = event.detail.totalProgress * 100;
                     progressBar.style.width = `${percent}%`;
@@ -790,7 +578,7 @@
                     }
                 };
                 modelViewer.addEventListener('progress', onProgress);
-                
+
                 let fakeProgress = 0;
                 const fakeInterval = setInterval(() => {
                     fakeProgress += 8;
@@ -799,7 +587,7 @@
                     }
                     if (fakeProgress >= 100) clearInterval(fakeInterval);
                 }, 200);
-                
+
                 modelViewer.addEventListener('load', () => {
                     loadingOverlay.style.display = 'none';
                     modelViewer.removeEventListener('progress', onProgress);

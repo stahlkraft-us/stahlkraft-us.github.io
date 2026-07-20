@@ -60,6 +60,16 @@
   .lead { margin-top:30px; max-width:820px; font-size:clamp(17px, 2vw, 20px); font-weight:500; color:#b2b2b2; line-height:1.6; }
   .lead b { color:#fff; font-weight:700; }
 
+  /* ---------- ABOUT: waving flag ---------- */
+  .about-row { display:flex; align-items:center; gap:44px; }
+  .about-text { flex:1 1 auto; min-width:0; }
+  .flag-canvas { flex:0 0 auto; width:236px; height:auto;
+                 image-rendering:pixelated; image-rendering:crisp-edges; }
+  @media (max-width:900px) {
+    .about-row { display:block; }
+    .flag-canvas { display:none; }
+  }
+
   .stats { margin-top:64px; display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px; }
   .stat { background:#fff; border-radius:16px; padding:28px 22px 26px; text-align:center; }
   .stat .big { font-size:34px; font-weight:800; color:#0b0b0b; letter-spacing:-0.02em; }
@@ -177,6 +187,8 @@
 
   <!-- ABOUT -->
   <section class="about">
+    <div class="about-row">
+    <div class="about-text">
     <div class="kicker">What we build</div>
     <div class="head">A robot that <span class="wchip">detects</span>, <span class="wchip">aims</span> and <span class="wchip">shoots down</span> drones.</div>
     <p class="lead">
@@ -185,6 +197,9 @@
       cameras, locks on, and shoots it down with any rifle &mdash; <b>no radar required</b>.
       A soldier approves every shot.
     </p>
+    </div>
+    <canvas class="flag-canvas" id="flagcv" width="118" height="100" aria-hidden="true"></canvas>
+    </div>
     <div class="stats">
       <div class="stat"><div class="big">$30K</div><div class="lbl">per unit &mdash; affordable at scale</div></div>
       <div class="stat"><div class="big">~$2</div><div class="lbl">per shot</div></div>
@@ -292,6 +307,91 @@
       setTimeout(function(){ form.classList.remove('shake'); }, 550);
     }
   });
+</script>
+
+<script>
+/* ---------- Waving flag (pixel canvas beside the About text) ---------- */
+(function () {
+  var cv = document.getElementById('flagcv');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+
+  /* flag source: 13 stripes x 4px, canton + 50 stars */
+  var FW = 100, FH = 52, STRIPE = 4;
+  var flag = document.createElement('canvas');
+  flag.width = FW; flag.height = FH;
+  var g = flag.getContext('2d');
+  for (var i = 0; i < 13; i++) {
+    g.fillStyle = (i % 2 === 0) ? '#cf2b3d' : '#f2f5f7';
+    g.fillRect(0, i * STRIPE, FW, STRIPE);
+  }
+  g.fillStyle = '#2a2d66';
+  g.fillRect(0, 0, 40, 28);
+  g.fillStyle = '#ffffff';
+  for (var r = 0; r < 9; r++) {
+    var sy = 1 + r * 3;
+    var n  = (r % 2 === 0) ? 6 : 5;
+    var x0 = (r % 2 === 0) ? 3 : 6;
+    for (var j = 0; j < n; j++) g.fillRect(x0 + j * 6, sy, 1, 1);
+  }
+
+  var POLE_X = 5, FLAG_X = POLE_X + 3, FLAG_Y = 12;
+
+  function pxCircle(c, cx, cy, rr, col) {
+    c.fillStyle = col;
+    for (var dy = -rr; dy <= rr; dy++) {
+      var s = Math.floor(Math.sqrt(rr * rr - dy * dy));
+      c.fillRect(cx - s, cy + dy, 2 * s + 1, 1);
+    }
+  }
+
+  var phase = 0, tSec = 0, last = performance.now();
+
+  function frame(now) {
+    var dt = Math.min(0.05, (now - last) / 1000);
+    last = now; tSec += dt;
+
+    var wind = 0.55 + 0.35 * Math.sin(tSec * 0.31 + 1.3) + 0.18 * Math.sin(tSec * 0.73);
+    wind = Math.max(0.15, Math.min(1.3, wind));
+    var amp = 2.6 + 4.2 * wind;
+    phase += (2.6 + 3.2 * wind) * dt;
+
+    ctx.clearRect(0, 0, cv.width, cv.height);
+
+    /* pole + gold finial + base */
+    ctx.fillStyle = '#cfd8e2'; ctx.fillRect(POLE_X,     10, 1, 82);
+    ctx.fillStyle = '#98a4b2'; ctx.fillRect(POLE_X + 1, 10, 1, 82);
+    ctx.fillStyle = '#5f6b7a'; ctx.fillRect(POLE_X + 2, 10, 1, 82);
+    pxCircle(ctx, POLE_X + 1, 6, 3, '#f5b93c');
+    ctx.fillStyle = '#fff0b8'; ctx.fillRect(POLE_X, 5, 1, 1);
+    ctx.fillStyle = '#c9932a'; ctx.fillRect(POLE_X, 9, 3, 1);
+    ctx.fillStyle = '#3f474f'; ctx.fillRect(POLE_X - 2, 92, 7, 2);
+    ctx.fillStyle = '#333a41'; ctx.fillRect(POLE_X - 4, 94, 11, 3);
+    ctx.fillStyle = '#262c31'; ctx.fillRect(POLE_X - 5, 97, 13, 3);
+
+    /* flag: per-column sine warp + cloth shading */
+    function wave(x) {
+      var env = Math.pow(x / FW, 0.85) * amp;
+      return Math.sin(phase - x * 0.13) * env
+           + Math.sin(phase * 1.83 - x * 0.235 + 1.4) * env * 0.38;
+    }
+    for (var x = 0; x < FW; x++) {
+      var dy = wave(x);
+      var yy = FLAG_Y + Math.round(dy);
+      ctx.drawImage(flag, x, 0, 1, FH, FLAG_X + x, yy, 1, FH);
+      var slope = wave(x + 2) - dy;
+      var o = null;
+      if      (slope < -1.35) o = 'rgba(12,16,48,0.32)';
+      else if (slope < -0.50) o = 'rgba(12,16,48,0.16)';
+      else if (slope >  1.35) o = 'rgba(255,255,255,0.30)';
+      else if (slope >  0.50) o = 'rgba(255,255,255,0.15)';
+      if (o) { ctx.fillStyle = o; ctx.fillRect(FLAG_X + x, yy, 1, FH); }
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>
